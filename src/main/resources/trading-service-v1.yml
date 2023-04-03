@@ -34,7 +34,6 @@ paths:
       summary: "execute particular algorithms with respect to given signal"
       operationId: executeAlgorithm
       requestBody:
-        required: true
         content:
           application/json:
             schema:
@@ -62,8 +61,6 @@ components:
             - UP
             - DOWN
     SignalRequest:
-      required:
-        - signal
       type: object
       properties:
         signal:
