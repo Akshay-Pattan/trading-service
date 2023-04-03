@@ -1,0 +1,51 @@
+openapi: 3.0.2
+info:
+  title: Trading Service
+  description:
+    API service \@capability1=banking \@capability2=corporate \@country=de
+    trading-service-v1 API service provides orchestrated services to execute Algo when given a signal
+  version: 1.0.0
+  contact:
+    email: akshaypattan99@gmail.com
+paths:
+  /health:
+    get:
+      tags:
+        - MetaInformationService
+      summary: "gets the current health status"
+      operationId: getHealth
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Health:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorDescription:
+          type: string
+        path:
+          type: string

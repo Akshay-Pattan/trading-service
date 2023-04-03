@@ -25,32 +25,26 @@
     <build>
         <plugins>
             <plugin>
-                <!-- This 2019 version is required for OpenAPI 3 -->
-                <groupId>io.swagger.codegen.v3</groupId>
-                <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>3.0.21</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.github.jknack</groupId>
-                        <artifactId>handlebars</artifactId>
-                        <version>4.3.0</version>
-                    </dependency>
-                </dependencies>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>4.2.3</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/trading-service-v1.yaml</inputSpec>
-                            <language>spring</language>
-                            <packageName>${client.base.package.name}</packageName>
-                            <modelPackage>${client.base.package.name}.model</modelPackage>
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/trading-service-v1.yml
+                            </inputSpec>
+                            <generatorName>spring</generatorName>
                             <apiPackage>${client.base.package.name}.api</apiPackage>
-                            <invokerPackage>${client.base.package.name}.invoker</invokerPackage>
+                            <modelPackage>${client.base.package.name}.model</modelPackage>
+                            <supportingFilesToGenerate>
+                                ApiUtil.java
+                            </supportingFilesToGenerate>
                             <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <serializableModel>true</serializableModel>
+                                <delegatePattern>true</delegatePattern>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -59,13 +53,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+                    <mainClass>com.db.corporate.bank.trading.service.v1.Main</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -123,6 +113,11 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.4.0-b180830.0359</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.3</version>
         </dependency>
     </dependencies>
 
