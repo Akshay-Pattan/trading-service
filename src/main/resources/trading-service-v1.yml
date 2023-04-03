@@ -27,6 +27,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /executeAlgo:
+    post:
+      tags:
+        - ExecuteAlgorithmService
+      summary: "execute particular algorithms with respect to given signal"
+      operationId: executeAlgorithm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignalRequest'
+      responses:
+        204:
+          description: Successful response
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
@@ -40,6 +61,15 @@ components:
           enum:
             - UP
             - DOWN
+    SignalRequest:
+      required:
+        - signal
+      type: object
+      properties:
+        signal:
+          type: integer
+          format: int32
+          example: 1
     Error:
       type: object
       properties:
